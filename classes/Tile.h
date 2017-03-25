@@ -14,7 +14,7 @@ public:
     const int TILE_HEIGHT = 32;
     SDL_Rect collider;
     int type;
-    void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* texture[]);
+    void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet);
     Tile(int x, int y, int type);
 };
 

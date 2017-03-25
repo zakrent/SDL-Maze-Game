@@ -9,7 +9,8 @@ Tile::Tile(int x, int y, int type) {
     this->type = type;
 }
 
-void Tile::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* texture[]) {
+void Tile::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet) {
     SDL_Rect dstrect = {collider.x - camera.x, collider.y - camera.y, TILE_WIDTH, TILE_HEIGHT};
-    SDL_RenderCopyEx(&renderer, texture[0], NULL, &dstrect, 0, NULL, SDL_FLIP_NONE);
+    SDL_Rect srcrect = {type*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT};
+    SDL_RenderCopyEx(&renderer, TileSheet, &srcrect, &dstrect, 0, NULL, SDL_FLIP_NONE);
 }

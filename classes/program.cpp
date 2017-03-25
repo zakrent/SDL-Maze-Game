@@ -14,7 +14,7 @@ void Program::startMainLoop() {
 
 void Program::render() {
     SDL_RenderClear(renderer);
-    map.render(*renderer, camera, texture);
+    map.render(*renderer, camera, TileSheet);
     SDL_RenderPresent(renderer);
 }
 
@@ -35,9 +35,9 @@ void Program::loadTextures(SDL_Renderer& renderer) {
     //temp
     SDL_Texture* tempTexture = NULL;
     SDL_Surface* tempSurface = NULL;
-    tempSurface = SDL_LoadBMP("tex.bmp");
+    tempSurface = SDL_LoadBMP("TileSheet.bmp");
     tempTexture = SDL_CreateTextureFromSurface(&renderer, tempSurface);
-    texture[0] = tempTexture;
+    TileSheet = tempTexture;
     SDL_FreeSurface(tempSurface);
     tempSurface = NULL;
 }
@@ -50,9 +50,7 @@ Program::Program() {
 }
 
 Program::~Program() {
-    for (auto tex : texture) {
-        SDL_DestroyTexture(tex);
-    }
+    SDL_DestroyTexture(TileSheet);
     SDL_Quit();
 }
 

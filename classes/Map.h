@@ -14,7 +14,7 @@ public:
     //std::vector < Entity > entities;
     //Player player;
     void generateMap();
-    void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* texture[]);
+    void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet);
     Map();
 };
 

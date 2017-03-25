@@ -12,12 +12,14 @@ void Map::generateMap() {
             tiles.push_back(Tile(i, a, 0));
         }
     }
+    tiles[10].type = 1;// debug
+    //TODO: Remove debug
 }
 
-void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* texture[]) {
+void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet) {
     for (Tile &tile : tiles) {
         //TODO: Check if tile is in camera view then render
-        tile.render(renderer, camera, texture);
+        tile.render(renderer, camera, TileSheet);
     }
 
 }
