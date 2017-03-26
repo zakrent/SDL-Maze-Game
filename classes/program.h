@@ -20,6 +20,7 @@ public:
     const int SCREEN_HEIGHT = 480;
     SDL_Renderer *renderer;
     SDL_Texture *TileSheet;
+    SDL_Texture *EntitySheet;
     SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
     void loadTextures(SDL_Renderer& renderer);
     void startMainLoop();

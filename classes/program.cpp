@@ -9,6 +9,7 @@ void Program::startMainLoop() {
     Uint32 updateStartedAt;
     while(running){
         updateStartedAt = SDL_GetTicks();
+        map.updateEntities();
         handleEvents();
         render();
         if(!SDL_TICKS_PASSED(SDL_GetTicks()+1, updateStartedAt+minUpdateTime)){
@@ -19,7 +20,7 @@ void Program::startMainLoop() {
 
 void Program::render() {
     SDL_RenderClear(renderer);
-    map.render(*renderer, camera, TileSheet);
+    map.render(*renderer, camera, TileSheet, EntitySheet);
     SDL_RenderPresent(renderer);
 }
 
@@ -36,15 +37,19 @@ void Program::handleEvents() {
     }
 }
 
-void Program::loadTextures(SDL_Renderer& renderer) {
-    //temp
+SDL_Texture* loadTexture(SDL_Renderer& renderer, char fileName[]){
     SDL_Texture* tempTexture = NULL;
     SDL_Surface* tempSurface = NULL;
-    tempSurface = SDL_LoadBMP("TileSheet.bmp");
+    tempSurface = SDL_LoadBMP(fileName);
     tempTexture = SDL_CreateTextureFromSurface(&renderer, tempSurface);
-    TileSheet = tempTexture;
     SDL_FreeSurface(tempSurface);
     tempSurface = NULL;
+    return tempTexture;
+}
+
+void Program::loadTextures(SDL_Renderer& renderer) {
+    TileSheet = loadTexture(renderer, "TileSheet.bmp");
+    EntitySheet = loadTexture(renderer, "EntitySheet.bmp");
 }
 
 Program::Program() {
