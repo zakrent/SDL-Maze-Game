@@ -5,11 +5,16 @@
 
 void Program::startMainLoop() {
     running = true;
+    Uint32 minUpdateTime = 10;
+    Uint32 updateStartedAt;
     while(running){
+        updateStartedAt = SDL_GetTicks();
         handleEvents();
         render();
+        if(!SDL_TICKS_PASSED(SDL_GetTicks()+1, updateStartedAt+minUpdateTime)){
+            SDL_Delay((updateStartedAt+minUpdateTime)-SDL_GetTicks());
+        }
     }
-    return;
 }
 
 void Program::render() {
