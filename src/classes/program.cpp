@@ -48,8 +48,8 @@ SDL_Texture* loadTexture(SDL_Renderer& renderer, char fileName[]){
 }
 
 void Program::loadTextures(SDL_Renderer& renderer) {
-    TileSheet = loadTexture(renderer, "TileSheet.bmp");
-    EntitySheet = loadTexture(renderer, "EntitySheet.bmp");
+    TileSheet = loadTexture(renderer, "textures/TileSheet.bmp");
+    EntitySheet = loadTexture(renderer, "textures/EntitySheet.bmp");
 }
 
 Program::Program() {
