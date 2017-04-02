@@ -7,6 +7,7 @@
 
 #include <SDL_rect.h>
 #include <SDL_render.h>
+#include "Tile.h"
 
 class Entity {
 protected:
@@ -19,7 +20,7 @@ public:
     int type;
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* EntitySheet);
     void update();
-    void handleTileCollision();
+    void handleTileCollision(Tile& tile);
     Entity(int type, int xInPixels, int yInPixels);
     ~Entity();
 

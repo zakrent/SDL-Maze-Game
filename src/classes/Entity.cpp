@@ -15,9 +15,11 @@ void Entity::updatePhysics() {
     collider.y += velocity[1];
 }
 
-void Entity::handleTileCollision() {
-    collider.x -= velocity[0];
-    collider.y -= velocity[1];
+void Entity::handleTileCollision(Tile& tile) {
+    if(tile.isSolid()){
+        collider.x -= velocity[0];
+        collider.y -= velocity[1];
+    }
 }
 
 void Entity::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* EntitySheet) {
@@ -35,4 +37,5 @@ Entity::Entity(int type, int xInPixels, int yInPixels) {
 Entity::~Entity() {
     return;
 }
+
 

@@ -10,6 +10,7 @@ void Program::startMainLoop() {
     while(running){
         updateStartedAt = SDL_GetTicks();
         map.updateEntities();
+        map.checkCollisions();
         handleEvents();
         render();
         if(!SDL_TICKS_PASSED(SDL_GetTicks()+1, updateStartedAt+minUpdateTime)){
@@ -63,22 +64,7 @@ Program::~Program() {
     SDL_DestroyTexture(TileSheet);
     SDL_Quit();
 }
-bool isPointInRectangle(SDL_Rect& collider, int pointX, int pointY){
-    return bool
-            (abs(pointX) > abs(collider.x)            &&
-             abs(pointX) < abs(collider.x+collider.w) &&
-             abs(pointY) > abs(collider.y)            &&
-             abs(pointY) < abs(collider.y+collider.h));
 
-}
-bool Program::checkIfCollidersColide(SDL_Rect& colliderA, SDL_Rect& colliderB) {
-    return bool
-            (isPointInRectangle(colliderA, colliderB.x, colliderB.y)             ||
-             isPointInRectangle(colliderA, colliderB.x+colliderB.w, colliderB.y) ||
-             isPointInRectangle(colliderA, colliderB.x, colliderB.y+colliderB.h) ||
-             isPointInRectangle(colliderA, colliderB.x+colliderB.w, colliderB.y+colliderB.h)
-            );
-}
 
 
 

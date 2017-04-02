@@ -24,7 +24,6 @@ public:
     SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
     void loadTextures(SDL_Renderer& renderer);
     void startMainLoop();
-    bool checkIfCollidersColide(SDL_Rect& colliderA, SDL_Rect& colliderB);
     Program();
     ~Program();
 };

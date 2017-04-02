@@ -9,6 +9,16 @@ Tile::Tile(int x, int y, int type) {
     this->type = type;
 }
 
+
+bool Tile::isSolid() {
+    if(type==1){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
 void Tile::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet) {
     SDL_Rect dstrect = {collider.x - camera.x, collider.y - camera.y, TILE_WIDTH, TILE_HEIGHT};
     SDL_Rect srcrect = {type*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT};
