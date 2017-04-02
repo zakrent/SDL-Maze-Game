@@ -14,6 +14,9 @@ void Map::generateMap() {
     }
     tiles[41].type = 1;// debug
     entities.push_back(Entity(0,32,32));
+    entities.push_back(Entity(0,10,0));
+    entities.push_back(Entity(0,20,64));
+    entities.push_back(Entity(0,0,38));
     //TODO: Remove debug
 }
 
@@ -32,10 +35,10 @@ bool isPointInRectangle(SDL_Rect& collider, int pointX, int pointY){
 }
 bool Map::checkIfCollidersColide(SDL_Rect& colliderA, SDL_Rect& colliderB) {
     return bool
-            (isPointInRectangle(colliderA, colliderB.x, colliderB.y)             ||
-             isPointInRectangle(colliderA, colliderB.x+colliderB.w, colliderB.y) ||
-             isPointInRectangle(colliderA, colliderB.x, colliderB.y+colliderB.h) ||
-             isPointInRectangle(colliderA, colliderB.x+colliderB.w, colliderB.y+colliderB.h)
+            (isPointInRectangle(colliderA, colliderB.x+1, colliderB.y+1)             ||
+             isPointInRectangle(colliderA, colliderB.x+colliderB.w-1, colliderB.y+1) ||
+             isPointInRectangle(colliderA, colliderB.x+1, colliderB.y+colliderB.h-1) ||
+             isPointInRectangle(colliderA, colliderB.x+colliderB.w-1, colliderB.y+colliderB.h-1)
             );
 }
 
