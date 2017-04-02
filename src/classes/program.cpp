@@ -9,6 +9,7 @@ void Program::startMainLoop() {
     Uint32 updateStartedAt;
     while(running){
         updateStartedAt = SDL_GetTicks();
+        map.players.front().handleControll();
         map.updateEntities();
         map.checkCollisions();
         handleEvents();
@@ -29,11 +30,11 @@ void Program::handleEvents() {
     SDL_Event event;
     while( SDL_PollEvent( &event) != 0 ) {
         switch(event.type){
-           case SDL_QUIT:
-              running = false;
-              break;
-           default:
-              break;
+            case SDL_QUIT:
+                running = false;
+                break;
+            default:
+                break;
         }
     }
 }

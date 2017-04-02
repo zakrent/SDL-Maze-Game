@@ -14,7 +14,7 @@ class Map {
 public:
     std::vector < Tile > tiles;
     std::vector < Entity > entities;
-    //Player player;
+    std::vector < Player > players;
     void generateMap();
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet, SDL_Texture* EntitySheet);
     void updateEntities();

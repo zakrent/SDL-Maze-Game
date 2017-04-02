@@ -23,7 +23,7 @@ public:
     void update();
     void handleTileCollision(Tile& tile);
     Entity(int type, int xInPixels, int yInPixels, int health = -1);
-    ~Entity();
+    virtual ~Entity();
 
 };
 

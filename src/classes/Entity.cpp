@@ -29,14 +29,15 @@ void Entity::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* Entit
 }
 
 Entity::Entity(int type, int xInPixels, int yInPixels, int health) {
-    this->velocity[0]=1; //TODO: Remove debugging
+    //this->velocity[0]=1; //TODO: Remove debugging
     this->type = type;
     this->health = health;
     collider = {xInPixels, yInPixels, ENTITY_WIDTH, ENTITY_HEIGHT};
 }
 
 Entity::~Entity() {
-    return;
+
 }
+
 
 

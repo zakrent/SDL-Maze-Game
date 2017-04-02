@@ -13,16 +13,21 @@ void Map::generateMap() {
         }
     }
     tiles[41].type = 1;// debug
+    tiles[43].type = 1;// debug
     entities.push_back(Entity(0,32,32));
     entities.push_back(Entity(0,10,0));
     entities.push_back(Entity(0,20,64));
     entities.push_back(Entity(0,0,38));
+    players.push_back(Player(0,64,64));
     //TODO: Remove debug
 }
 
 void Map::updateEntities() {
     for(Entity &entity : entities){
         entity.update();
+    }
+    for(Player &player : players){
+        player.update();
     }
 }
 bool isPointInRectangle(SDL_Rect& collider, int pointX, int pointY){
@@ -50,6 +55,13 @@ void Map::checkCollisions() {
             }
         }
     }
+    for(Entity &player : players){
+        for(Tile &tile : tiles){
+            if(checkIfCollidersColide(player.collider, tile.collider)){
+                player.handleTileCollision(tile);
+            }
+        }
+    }
 }
 
 void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet, SDL_Texture* EntitySheet) {
@@ -60,6 +72,9 @@ void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileShee
     }
     for(Entity &entity : entities){
         entity.render(renderer, camera, EntitySheet);
+    }
+    for(Player &player : players){
+        player.render(renderer, camera, EntitySheet);
     }
 
 }
