@@ -28,9 +28,10 @@ void Entity::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* Entit
     SDL_RenderCopyEx(&renderer, EntitySheet, &srcrect, &dstrect, 0, NULL, SDL_FLIP_NONE);
 }
 
-Entity::Entity(int type, int xInPixels, int yInPixels) {
+Entity::Entity(int type, int xInPixels, int yInPixels, int health) {
     this->velocity[0]=1; //TODO: Remove debugging
     this->type = type;
+    this->health = health;
     collider = {xInPixels, yInPixels, ENTITY_WIDTH, ENTITY_HEIGHT};
 }
 

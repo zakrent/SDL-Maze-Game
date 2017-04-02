@@ -13,6 +13,7 @@ class Entity {
 protected:
     float velocity[2]; //velocity[0] is x and [1] is y, unit = 1px/0.01s
     void updatePhysics();
+    int health; //-1 for indestructible
 public:
     const int ENTITY_WIDTH = 32;
     const int ENTITY_HEIGHT = 32;
@@ -21,7 +22,7 @@ public:
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* EntitySheet);
     void update();
     void handleTileCollision(Tile& tile);
-    Entity(int type, int xInPixels, int yInPixels);
+    Entity(int type, int xInPixels, int yInPixels, int health = -1);
     ~Entity();
 
 };

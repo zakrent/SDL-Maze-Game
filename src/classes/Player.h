@@ -8,8 +8,9 @@
 #include "Entity.h"
 
 class Player : public Entity{
-
+public:
+    void handleControllEvent();
+    using Entity::Entity;
 };
-
 
 #endif //SDL_1_PLAYER_H

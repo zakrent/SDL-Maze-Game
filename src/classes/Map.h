@@ -8,6 +8,7 @@
 #include <vector>
 #include "Tile.h"
 #include "Entity.h"
+#include "Player.h"
 
 class Map {
 public:
