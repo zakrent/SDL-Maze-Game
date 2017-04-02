@@ -7,13 +7,13 @@
 
 void Map::generateMap() {
     //temp
-    for (int i = 0; i < 10; ++i) {
-        for (int a = 0; a < 10; ++a) {
+    for (int i = 0; i < 100; ++i) {
+        for (int a = 0; a < 100; ++a) {
             tiles.push_back(Tile(i, a, 0));
         }
     }
-    tiles[41].type = 1;// debug
-    tiles[43].type = 1;// debug
+    tiles[401].type = 1;// debug
+    tiles[403].type = 1;// debug
     entities.push_back(Entity(0,32,32));
     entities.push_back(Entity(0,10,0));
     entities.push_back(Entity(0,20,64));

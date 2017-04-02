@@ -9,6 +9,7 @@ void Program::startMainLoop() {
     Uint32 updateStartedAt;
     while(running){
         updateStartedAt = SDL_GetTicks();
+        calculateCameraPos();
         map.players.front().handleControll();
         map.updateEntities();
         map.checkCollisions();
@@ -18,6 +19,18 @@ void Program::startMainLoop() {
             SDL_Delay((updateStartedAt+minUpdateTime)-SDL_GetTicks());
         }
     }
+}
+
+void Program::calculateCameraPos(){
+    camera.x = map.players.front().collider.x-camera.w/2+TILE_WIDTH/2;
+    camera.y = map.players.front().collider.y-camera.h/2+TILE_HEIGHT/2;
+    if(camera.x<0){
+        camera.x = 0;
+    }
+    if(camera.y<0){
+        camera.y = 0;
+    }
+
 }
 
 void Program::render() {
