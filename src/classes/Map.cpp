@@ -51,8 +51,9 @@ void Map::checkCollisions() {
 
 void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet, SDL_Texture* EntitySheet) {
     for (Tile &tile : tiles) {
-        //TODO: Check if tile is in camera view then render
-        tile.render(renderer, camera, TileSheet);
+        if(checkIfCollidersColide(camera, tile.collider)){
+            tile.render(renderer, camera, TileSheet);
+        }
     }
     for(Entity &entity : entities){
         entity.render(renderer, camera, EntitySheet);
