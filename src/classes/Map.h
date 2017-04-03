@@ -10,6 +10,16 @@
 #include "Entity.h"
 #include "Player.h"
 
+enum direction {
+    Up,
+    Down,
+    Left,
+    Right
+};
+
+static const int MAP_HEIGHT = 10;
+static const int MAP_WIDTH = 20;
+
 class Map {
 public:
     std::vector < Tile > tiles;
@@ -20,6 +30,7 @@ public:
     void updateEntities();
     void checkCollisions();
     bool checkIfCollidersColide(SDL_Rect& colliderA, SDL_Rect& colliderB);
+    int getNeighbouringTileIndex(direction directionToNeighbour, Tile mainTile);
     Map();
 };
 

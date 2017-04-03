@@ -18,6 +18,7 @@ public:
     const int ENTITY_WIDTH = 32;
     const int ENTITY_HEIGHT = 32;
     SDL_Rect collider;
+    Tile* isStandingOn;
     int type;
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* EntitySheet);
     void update();

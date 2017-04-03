@@ -7,18 +7,18 @@
 
 void Map::generateMap() {
     //temp
-    for (int i = 0; i < 100; ++i) {
-        for (int a = 0; a < 100; ++a) {
-            tiles.push_back(Tile(i, a, 0));
+    for (int i = 0; i < MAP_WIDTH; ++i) {
+        for (int a = 0; a < MAP_HEIGHT; ++a) {
+            tiles.push_back(Tile(i, a, 0, MAP_HEIGHT*i+a));
         }
     }
-    tiles[401].type = 1;// debug
-    tiles[403].type = 1;// debug
+    tiles[21].type = 1;// debug
+    tiles[23].type = 1;// debug
     entities.push_back(Entity(0,32,32));
     entities.push_back(Entity(0,10,0));
     entities.push_back(Entity(0,20,64));
     entities.push_back(Entity(0,0,38));
-    players.push_back(Player(0,64,64));
+    players.push_back(Player(0,64,320));
     //TODO: Remove debug
 }
 
@@ -64,6 +64,37 @@ void Map::checkCollisions() {
     }
 }
 
+int Map::getNeighbouringTileIndex(direction directionToNeighbour, Tile mainTile) {
+    int neighbourTileIndex;
+    bool doesNeighbourExist = (
+            mainTile.index != NULL && (
+                                              (directionToNeighbour == Up && mainTile.index % MAP_HEIGHT != 0) ||
+                                              (directionToNeighbour == Down && mainTile.index % MAP_HEIGHT != MAP_HEIGHT-1) ||
+                                              (directionToNeighbour == Right && mainTile.index < (MAP_HEIGHT * MAP_WIDTH)-MAP_HEIGHT) ||
+                                              (directionToNeighbour == Left && mainTile.index > MAP_HEIGHT-1)
+                                      )
+    );
+    if(!doesNeighbourExist){
+        neighbourTileIndex = NULL;
+    }else{
+        switch(directionToNeighbour){
+            case Up:
+                neighbourTileIndex = mainTile.index-1;
+                break;
+            case Down:
+                neighbourTileIndex = mainTile.index+1;
+                break;
+            case Right:
+                neighbourTileIndex = mainTile.index+MAP_HEIGHT;
+                break;
+            case Left:
+                neighbourTileIndex = mainTile.index-MAP_HEIGHT;
+        }
+    }
+    return neighbourTileIndex;
+}
+
+
 void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet, SDL_Texture* EntitySheet) {
     for (Tile &tile : tiles) {
         if(checkIfCollidersColide(camera, tile.collider)){
@@ -82,4 +113,5 @@ void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileShee
 Map::Map() {
     generateMap();
 }
+
 
