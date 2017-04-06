@@ -15,10 +15,9 @@ class Tile {
 public:
     SDL_Rect collider;
     int type;
-    int index;
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet);
     bool isSolid();
-    Tile(int x, int y, int type, int index = NULL);
+    Tile(int x, int y, int type);
 };
 
 

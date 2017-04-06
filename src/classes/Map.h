@@ -30,7 +30,7 @@ public:
     void updateEntities();
     void checkCollisions();
     bool checkIfCollidersColide(SDL_Rect& colliderA, SDL_Rect& colliderB);
-    int getNeighbouringTileIndex(direction directionToNeighbour, Tile mainTile);
+    Tile* getNeighbouringTile(direction directionToNeighbour, Tile* mainTile);
     Map();
 };
 

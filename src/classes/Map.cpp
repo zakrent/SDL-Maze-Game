@@ -9,7 +9,7 @@ void Map::generateMap() {
     //temp
     for (int i = 0; i < MAP_WIDTH; ++i) {
         for (int a = 0; a < MAP_HEIGHT; ++a) {
-            tiles.push_back(Tile(i, a, 0, MAP_HEIGHT*i+a));
+            tiles.push_back(Tile(i, a, 0));
         }
     }
     tiles[21].type = 1;// debug
@@ -18,7 +18,7 @@ void Map::generateMap() {
     entities.push_back(Entity(0,10,0));
     entities.push_back(Entity(0,20,64));
     entities.push_back(Entity(0,0,38));
-    players.push_back(Player(0,64,320));
+    players.push_back(Player(0,64,64));
     //TODO: Remove debug
 }
 
@@ -64,34 +64,32 @@ void Map::checkCollisions() {
     }
 }
 
-int Map::getNeighbouringTileIndex(direction directionToNeighbour, Tile mainTile) {
-    int neighbourTileIndex;
-    bool doesNeighbourExist = (
-            mainTile.index != NULL && (
-                                              (directionToNeighbour == Up && mainTile.index % MAP_HEIGHT != 0) ||
-                                              (directionToNeighbour == Down && mainTile.index % MAP_HEIGHT != MAP_HEIGHT-1) ||
-                                              (directionToNeighbour == Right && mainTile.index < (MAP_HEIGHT * MAP_WIDTH)-MAP_HEIGHT) ||
-                                              (directionToNeighbour == Left && mainTile.index > MAP_HEIGHT-1)
-                                      )
-    );
-    if(!doesNeighbourExist){
-        neighbourTileIndex = NULL;
-    }else{
-        switch(directionToNeighbour){
-            case Up:
-                neighbourTileIndex = mainTile.index-1;
-                break;
-            case Down:
-                neighbourTileIndex = mainTile.index+1;
-                break;
-            case Right:
-                neighbourTileIndex = mainTile.index+MAP_HEIGHT;
-                break;
-            case Left:
-                neighbourTileIndex = mainTile.index-MAP_HEIGHT;
+Tile* Map::getNeighbouringTile(direction directionToNeighbour, Tile* mainTile) {
+    if(mainTile == NULL){
+        return NULL;
+    }
+    Tile *neighbourTile = NULL;
+    SDL_Rect offsetCollider;
+    offsetCollider = mainTile->collider;
+    switch(directionToNeighbour){
+        case Up:
+            offsetCollider.y -= TILE_HEIGHT;
+            break;
+        case Down:
+            offsetCollider.y += TILE_HEIGHT;
+            break;
+        case Right:
+            offsetCollider.x += TILE_WIDTH;
+            break;
+        case Left:
+            offsetCollider.x -= TILE_WIDTH;
+        }
+    for(Tile &tile : tiles){
+        if(checkIfCollidersColide(offsetCollider, tile.collider)){
+            neighbourTile = &tile;
         }
     }
-    return neighbourTileIndex;
+    return neighbourTile;
 }
 
 
