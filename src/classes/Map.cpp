@@ -18,6 +18,12 @@ void Map::generateMap() {
     //TODO: Remove debug
 }
 
+void Map::update() {
+    players.front().handleControll();
+    updateEntities();
+    checkCollisions();
+}
+
 void Map::updateEntities() {
     for(Entity &entity : entities){
         entity.update();

@@ -7,14 +7,14 @@ void Program::startMainLoop() {
     running = true;
     Uint32 minUpdateTime = 10;
     Uint32 updateStartedAt;
-    while(running){
+    while(running){ // 1 update >= 10 ms
         updateStartedAt = SDL_GetTicks();
+
         calculateCameraPos();
-        map.players.front().handleControll();
-        map.updateEntities();
-        map.checkCollisions();
+        map.update();
         handleEvents();
         render();
+
         if(!SDL_TICKS_PASSED(SDL_GetTicks()+1, updateStartedAt+minUpdateTime)){
             SDL_Delay((updateStartedAt+minUpdateTime)-SDL_GetTicks());
         }
