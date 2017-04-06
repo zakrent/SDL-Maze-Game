@@ -76,6 +76,7 @@ Program::Program() {
 
 Program::~Program() {
     SDL_DestroyTexture(TileSheet);
+    SDL_DestroyTexture(EntitySheet);
     SDL_Quit();
 }
 
