@@ -1,7 +1,6 @@
 //
 // Created by zakrent on 3/18/17.
 //
-
 #include "Map.h"
 
 
@@ -10,14 +9,11 @@ void Map::generateMap() {
     for (int i = 0; i < MAP_WIDTH; ++i) {
         for (int a = 0; a < MAP_HEIGHT; ++a) {
             tiles.push_back(Tile(i, a, 0));
+            if(a == 0 || i == 0 || i==MAP_WIDTH-1 || a==MAP_HEIGHT-1){
+                tiles.back().type=2;
+            }
         }
     }
-    tiles[21].type = 1;// debug
-    tiles[23].type = 1;// debug
-    entities.push_back(Entity(0,32,32));
-    entities.push_back(Entity(0,10,0));
-    entities.push_back(Entity(0,20,64));
-    entities.push_back(Entity(0,0,38));
     players.push_back(Player(0,64,64));
     //TODO: Remove debug
 }

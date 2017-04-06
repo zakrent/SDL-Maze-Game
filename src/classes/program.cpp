@@ -30,6 +30,12 @@ void Program::calculateCameraPos(){
     if(camera.y<0){
         camera.y = 0;
     }
+    if(camera.x+SCREEN_WIDTH>MAP_WIDTH*TILE_WIDTH){
+        camera.x = (MAP_WIDTH*TILE_WIDTH)-SCREEN_WIDTH;
+    }
+    if(camera.y+SCREEN_HEIGHT>MAP_HEIGHT*TILE_HEIGHT){
+        camera.y = (MAP_HEIGHT*TILE_HEIGHT)-SCREEN_HEIGHT;
+    }
 
 }
 

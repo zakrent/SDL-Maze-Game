@@ -17,8 +17,8 @@ enum direction {
     Right
 };
 
-static const int MAP_HEIGHT = 10;
-static const int MAP_WIDTH = 20;
+static const int MAP_HEIGHT = 25;
+static const int MAP_WIDTH = 25;
 
 class Map {
 public:
