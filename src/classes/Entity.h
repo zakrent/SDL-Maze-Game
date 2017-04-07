@@ -15,8 +15,8 @@ protected:
     void updatePhysics();
     int health; //-1 for indestructible
 public:
-    const int ENTITY_WIDTH = 32;
-    const int ENTITY_HEIGHT = 32;
+    const int ENTITY_WIDTH = 24;
+    const int ENTITY_HEIGHT = 24;
     SDL_Rect collider;
     Tile* isStandingOn;
     int type;
