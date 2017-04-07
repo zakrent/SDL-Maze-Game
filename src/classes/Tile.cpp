@@ -5,11 +5,7 @@
 #include "Tile.h"
 
 bool Tile::isSolid() {
-    if(type==1 || type==2){
-        return true;
-    }else{
-        return false;
-    }
+    return type == 1 || type == 2;
 }
 
 

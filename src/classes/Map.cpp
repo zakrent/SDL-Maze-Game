@@ -79,7 +79,6 @@ void Map::generateMap() {
                 }
             }
         }
-        //vertical
         pass++;
     }
     players.push_back(Player(0, 32, 32));
