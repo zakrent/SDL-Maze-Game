@@ -49,9 +49,10 @@ void Map::generateMap() {
     std::uniform_int_distribution<int> numberOfRowsDistribution(0,numberOfRows-1);
 
     Tile* currentNodes[2] = {NULL, NULL};
+    bool done = false;
     int nodeCords[2];
     int pass = 0;
-    while(pass<10000){
+    while(!done){
         if(pass % 2 == 0) {
             nodeCords[0] = numberOfRowsDistribution(randomGenerator);
             nodeCords[1] = elementsInRowDistributionLower(randomGenerator);
@@ -79,10 +80,20 @@ void Map::generateMap() {
                 }
             }
         }
+        done = true;
+        for(auto nodeRow : nodeRows){
+            for(auto node : nodeRow){
+                if(node->group != nodeRows.front().front()->group){
+                    done = false;
+                    break;
+                }
+            }
+        }
         pass++;
     }
     players.push_back(Player(0, 32, 32));
 }
+
 void Map::update() {
     players.front().handleControll();
     updateEntities();
@@ -117,14 +128,14 @@ bool Map::checkIfCollidersColide(SDL_Rect& colliderA, SDL_Rect& colliderB) {
 void Map::checkCollisions() {
     for(Entity &entity : entities){
         for(Tile &tile : tiles){
-            if(checkIfCollidersColide(entity.collider, tile.collider)){
+            if(checkIfCollidersColide(tile.collider, entity.collider)){
                 entity.handleTileCollision(tile);
             }
         }
     }
     for(Entity &player : players){
         for(Tile &tile : tiles){
-            if(checkIfCollidersColide(player.collider, tile.collider)){
+            if(checkIfCollidersColide(tile.collider, player.collider)){
                 player.handleTileCollision(tile);
             }
         }
