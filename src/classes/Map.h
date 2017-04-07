@@ -17,19 +17,21 @@ enum direction {
     Right
 };
 
-static const int MAP_HEIGHT = 25;
-static const int MAP_WIDTH = 25;
+static const int MAP_HEIGHT = 50;
+static const int MAP_WIDTH = 50;
 
 class Map {
-public:
+private:
     std::vector < Tile > tiles;
     std::vector < Entity > entities;
+    std::vector < Tile* > generateNodeRow(Tile* firstNode);
+    void updateEntities();
+    void checkCollisions();
+public:
     std::vector < Player > players;
     void generateMap();
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet, SDL_Texture* EntitySheet);
     void update();
-    void updateEntities();
-    void checkCollisions();
     bool checkIfCollidersColide(SDL_Rect& colliderA, SDL_Rect& colliderB);
     Tile* getNeighbouringTile(direction directionToNeighbour, Tile* mainTile);
     Map();

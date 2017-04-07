@@ -1,23 +1,89 @@
 //
 // Created by zakrent on 3/18/17.
 //
+#include <random>
 #include "Map.h"
 
+std::vector < Tile* > Map::generateNodeRow(Tile* firstNode){
+    std::vector < Tile* > newRow;
+    Tile* currentNode = firstNode;
+    while(currentNode && currentNode->type!=2){
+        newRow.push_back(currentNode);
+        currentNode = getNeighbouringTile(Right, getNeighbouringTile(Right, currentNode));
+    }
+    return newRow;
+};
 
 void Map::generateMap() {
-    //temp
+
     for (int i = 0; i < MAP_WIDTH; ++i) {
         for (int a = 0; a < MAP_HEIGHT; ++a) {
-            tiles.push_back(Tile(i, a, 0));
-            if(a == 0 || i == 0 || i==MAP_WIDTH-1 || a==MAP_HEIGHT-1){
-                tiles.back().type=2;
+            tiles.push_back(Tile(i, a, 1));
+            if (a == 0 || i == 0 || i == MAP_WIDTH - 1 || a == MAP_HEIGHT - 1) {
+                tiles.back().type = 2;
             }
         }
     }
-    players.push_back(Player(0,64,64));
-    //TODO: Remove debug
-}
 
+    std::vector < std::vector < Tile* >  > nodeRows;
+    Tile* firstNode = getNeighbouringTile(Down, getNeighbouringTile(Right, &tiles.front()));
+    while(firstNode && firstNode->type != 2){
+        nodeRows.push_back(generateNodeRow(firstNode));
+        firstNode = getNeighbouringTile(Down, getNeighbouringTile(Down, firstNode));
+    }
+    int group = 0;
+    for(auto nodeRow : nodeRows){
+        for(auto node : nodeRow){
+            node->type=0;
+            node->group=group;
+            group++;
+        }
+    }
+    int elementsInRow = nodeRows.front().size();
+    int numberOfRows = nodeRows.size();
+
+    std::random_device randomGenerator;
+    std::uniform_int_distribution<int> elementsInRowDistributionLower(0,elementsInRow-2);
+    std::uniform_int_distribution<int> numberOfRowsDistributionLower(0,numberOfRows-2);
+    std::uniform_int_distribution<int> elementsInRowDistribution(0,elementsInRow-1);
+    std::uniform_int_distribution<int> numberOfRowsDistribution(0,numberOfRows-1);
+
+    Tile* currentNodes[2] = {NULL, NULL};
+    int nodeCords[2];
+    int pass = 0;
+    while(pass<10000){
+        if(pass % 2 == 0) {
+            nodeCords[0] = numberOfRowsDistribution(randomGenerator);
+            nodeCords[1] = elementsInRowDistributionLower(randomGenerator);
+            currentNodes[0] = nodeRows[nodeCords[0]][nodeCords[1]];
+            currentNodes[1] = nodeRows[nodeCords[0]][nodeCords[1]+1];
+
+        }else{
+            nodeCords[0] = numberOfRowsDistributionLower(randomGenerator);
+            nodeCords[1] = elementsInRowDistribution(randomGenerator);
+            currentNodes[0] = nodeRows[nodeCords[0]][nodeCords[1]];
+            currentNodes[1] = nodeRows[nodeCords[0]+1][nodeCords[1]];
+        }
+        if(currentNodes[0]->group != currentNodes[1]->group){
+            if(pass % 2 == 0) {
+                getNeighbouringTile(Right, currentNodes[0])->type=0;
+            }else {
+                getNeighbouringTile(Down, currentNodes[0])->type = 0;
+            }
+            int node1Group = currentNodes[1]->group;
+            for(auto nodeRow : nodeRows){
+                for(auto node : nodeRow){
+                    if(node->group == node1Group){
+                        node->group = currentNodes[0]->group;
+                    }
+                }
+            }
+        }
+        //vertical
+        pass++;
+    }
+    players.push_back(Player(0, 32, 32));
+}
 void Map::update() {
     players.front().handleControll();
     updateEntities();
