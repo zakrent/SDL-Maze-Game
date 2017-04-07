@@ -167,10 +167,14 @@ void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileShee
         }
     }
     for(Entity &entity : entities){
-        entity.render(renderer, camera, EntitySheet);
+        if(checkIfCollidersColide(camera, entity.collider)){
+            entity.render(renderer, camera, EntitySheet);
+        }
     }
     for(Player &player : players){
-        player.render(renderer, camera, EntitySheet);
+        if(checkIfCollidersColide(camera, player.collider)){
+            player.render(renderer, camera, EntitySheet);
+        }
     }
 
 }
