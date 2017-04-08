@@ -21,7 +21,8 @@ public:
     Tile* isStandingOn;
     int type;
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* EntitySheet);
-    void update();
+
+    virtual void update();
     void handleTileCollision(Tile& tile);
     Entity(int type, int xInPixels, int yInPixels, int health = -1);
     virtual ~Entity();

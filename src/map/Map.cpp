@@ -3,6 +3,7 @@
 //
 #include <random>
 #include "Map.h"
+#include "../entities/Enemy.h"
 
 std::vector < Tile* > Map::generateNodeRow(Tile* firstNode){
     std::vector < Tile* > newRow;
@@ -18,15 +19,15 @@ void Map::generateMap() {
 
     for (int i = 0; i < MAP_WIDTH; ++i) {
         for (int a = 0; a < MAP_HEIGHT; ++a) {
-            tiles.push_back(Tile(i, a, 1));
+            tiles.push_back(new Tile(i, a, 1));
             if (a == 0 || i == 0 || i == MAP_WIDTH - 1 || a == MAP_HEIGHT - 1) {
-                tiles.back().type = 2;
+                tiles.back()->type = 2;
             }
         }
     }
 
     std::vector < std::vector < Tile* >  > nodeRows;
-    Tile* firstNode = getNeighbouringTile(Down, getNeighbouringTile(Right, &tiles.front()));
+    Tile *firstNode = getNeighbouringTile(Down, getNeighbouringTile(Right, tiles.front()));
     while(firstNode && firstNode->type != 2){
         nodeRows.push_back(generateNodeRow(firstNode));
         firstNode = getNeighbouringTile(Down, getNeighbouringTile(Down, firstNode));
@@ -91,21 +92,20 @@ void Map::generateMap() {
         }
         pass++;
     }
-    players.push_back(Player(0, 32, 32));
 }
 
 void Map::update() {
-    players.front().handleControll();
+    players.front()->handleControll();
     updateEntities();
     checkCollisions();
 }
 
 void Map::updateEntities() {
-    for(Entity &entity : entities){
-        entity.update();
+    for (Entity *entity : entities) {
+        entity->update();
     }
-    for(Player &player : players){
-        player.update();
+    for (Player *player : players) {
+        player->update();
     }
 }
 bool isPointInRectangle(SDL_Rect& collider, int pointX, int pointY){
@@ -126,17 +126,17 @@ bool Map::checkIfCollidersColide(SDL_Rect& colliderA, SDL_Rect& colliderB) {
 }
 
 void Map::checkCollisions() {
-    for(Entity &entity : entities){
-        for(Tile &tile : tiles){
-            if(checkIfCollidersColide(tile.collider, entity.collider)){
-                entity.handleTileCollision(tile);
+    for (Entity *entity : entities) {
+        for (Tile *tile : tiles) {
+            if (checkIfCollidersColide(tile->collider, entity->collider)) {
+                entity->handleTileCollision(*tile);
             }
         }
     }
-    for(Entity &player : players){
-        for(Tile &tile : tiles){
-            if(checkIfCollidersColide(tile.collider, player.collider)){
-                player.handleTileCollision(tile);
+    for (Entity *player : players) {
+        for (Tile *tile : tiles) {
+            if (checkIfCollidersColide(tile->collider, player->collider)) {
+                player->handleTileCollision(*tile);
             }
         }
     }
@@ -162,9 +162,9 @@ Tile* Map::getNeighbouringTile(direction directionToNeighbour, Tile* mainTile) {
         case Left:
             offsetCollider.x -= TILE_WIDTH;
         }
-    for(Tile &tile : tiles){
-        if(checkIfCollidersColide(offsetCollider, tile.collider)){
-            neighbourTile = &tile;
+    for (Tile *tile : tiles) {
+        if (checkIfCollidersColide(offsetCollider, tile->collider)) {
+            neighbourTile = tile;
         }
     }
     return neighbourTile;
@@ -172,19 +172,19 @@ Tile* Map::getNeighbouringTile(direction directionToNeighbour, Tile* mainTile) {
 
 
 void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet, SDL_Texture* EntitySheet) {
-    for (Tile &tile : tiles) {
-        if(checkIfCollidersColide(camera, tile.collider)){
-            tile.render(renderer, camera, TileSheet);
+    for (Tile *tile : tiles) {
+        if (checkIfCollidersColide(camera, tile->collider)) {
+            tile->render(renderer, camera, TileSheet);
         }
     }
-    for(Entity &entity : entities){
-        if(checkIfCollidersColide(camera, entity.collider)){
-            entity.render(renderer, camera, EntitySheet);
+    for (Entity *entity : entities) {
+        if (checkIfCollidersColide(camera, entity->collider)) {
+            entity->render(renderer, camera, EntitySheet);
         }
     }
-    for(Player &player : players){
-        if(checkIfCollidersColide(camera, player.collider)){
-            player.render(renderer, camera, EntitySheet);
+    for (Player *player : players) {
+        if (checkIfCollidersColide(camera, player->collider)) {
+            player->render(renderer, camera, EntitySheet);
         }
     }
 
@@ -192,6 +192,8 @@ void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileShee
 
 Map::Map() {
     generateMap();
+    players.push_back(new Player(0, 32, 48));
+    entities.push_back(new Enemy(0, 32, 32));
 }
 
 

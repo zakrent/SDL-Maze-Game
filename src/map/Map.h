@@ -22,13 +22,13 @@ static const int MAP_WIDTH = 50;
 
 class Map {
 private:
-    std::vector < Tile > tiles;
-    std::vector < Entity > entities;
+    std::vector<Tile *> tiles;
+    std::vector<Entity *> entities;
     std::vector < Tile* > generateNodeRow(Tile* firstNode);
     void updateEntities();
     void checkCollisions();
 public:
-    std::vector < Player > players;
+    std::vector<Player *> players;
     void generateMap();
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet, SDL_Texture* EntitySheet);
     void update();

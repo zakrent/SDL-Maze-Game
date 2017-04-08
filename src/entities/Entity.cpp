@@ -40,6 +40,3 @@ Entity::Entity(int type, int xInPixels, int yInPixels, int health) {
 Entity::~Entity() {
 
 }
-
-
-
