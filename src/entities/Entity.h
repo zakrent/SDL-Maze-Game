@@ -7,7 +7,7 @@
 
 #include <SDL_rect.h>
 #include <SDL_render.h>
-#include "Tile.h"
+#include "../map/Tile.h"
 
 class Entity {
 protected:

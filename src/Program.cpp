@@ -1,7 +1,7 @@
 //
 // Created by zakrent on 3/18/17.
 //
-#include "program.h"
+#include "Program.h"
 
 void Program::startMainLoop() {
     running = true;

@@ -7,8 +7,8 @@
 
 #include <vector>
 #include "Tile.h"
-#include "Entity.h"
-#include "Player.h"
+#include "../entities/Entity.h"
+#include "../entities/Player.h"
 
 enum direction {
     Up,

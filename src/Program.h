@@ -6,7 +6,7 @@
 #define SDL_1_PROGRAM_H
 
 #include <SDL2/SDL.h>
-#include "Map.h"
+#include "map/Map.h"
 
 class Program {
 private:
