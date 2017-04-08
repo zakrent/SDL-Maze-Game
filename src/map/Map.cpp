@@ -108,6 +108,7 @@ void Map::updateEntities() {
         player->update();
     }
 }
+
 bool isPointInRectangle(SDL_Rect& collider, int pointX, int pointY){
     return bool
             (abs(pointX) >= abs(collider.x)            &&
@@ -116,6 +117,7 @@ bool isPointInRectangle(SDL_Rect& collider, int pointX, int pointY){
              abs(pointY) <= abs(collider.y+collider.h));
 
 }
+
 bool Map::checkIfCollidersColide(SDL_Rect& colliderA, SDL_Rect& colliderB) {
     return bool
             (isPointInRectangle(colliderA, colliderB.x+1, colliderB.y+1)             ||
@@ -192,8 +194,29 @@ void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileShee
 
 Map::Map() {
     generateMap();
-    players.push_back(new Player(0, 32, 48));
+    players.push_back(new Player(0, 32, 32));
     entities.push_back(new Enemy(1, 32, 32));
 }
 
+void Map::calculateDistancesFromPlayer() {
+    for (Tile *tile : tiles) {
+        tile->distanceFromPlayer = -1;
+    }
+    calculateTileDistanceFromPlayer(players.front()->isStandingOn, 0);
+}
 
+void Map::calculateTileDistanceFromPlayer(Tile *StartTile, int previousDistance) {
+    if (previousDistance > 15 || StartTile == NULL) {
+        return;
+    } else if ((StartTile->distanceFromPlayer > previousDistance || StartTile->distanceFromPlayer == -1 ||
+                StartTile->distanceFromPlayer == 1)) {
+        StartTile->distanceFromPlayer = previousDistance + 1;
+        if (!StartTile->isSolid()) {
+            calculateTileDistanceFromPlayer(getNeighbouringTile(Up, StartTile), previousDistance + 1);
+            calculateTileDistanceFromPlayer(getNeighbouringTile(Right, StartTile), previousDistance + 1);
+            calculateTileDistanceFromPlayer(getNeighbouringTile(Left, StartTile), previousDistance + 1);
+            calculateTileDistanceFromPlayer(getNeighbouringTile(Down, StartTile), previousDistance + 1);
+        }
+    }
+
+}

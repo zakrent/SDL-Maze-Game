@@ -15,6 +15,7 @@ class Tile {
 public:
     SDL_Rect collider;
     int type;
+    int distanceFromPlayer;
     int group;
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet);
     bool isSolid();

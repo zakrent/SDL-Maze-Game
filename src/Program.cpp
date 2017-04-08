@@ -1,12 +1,14 @@
 //
 // Created by zakrent on 3/18/17.
 //
+#include <iostream>
 #include "Program.h"
 
 void Program::startMainLoop() {
     running = true;
     Uint32 minUpdateTime = 10;
     Uint32 updateStartedAt;
+    unsigned long long int updateCounter = 0;
     while(running){ // 1 update >= 10 ms
         updateStartedAt = SDL_GetTicks();
 
@@ -15,9 +17,14 @@ void Program::startMainLoop() {
         handleEvents();
         render();
 
+        if (updateCounter % 10 == 0) {
+            map.calculateDistancesFromPlayer();
+        }
+
         if(!SDL_TICKS_PASSED(SDL_GetTicks()+1, updateStartedAt+minUpdateTime)){
             SDL_Delay((updateStartedAt+minUpdateTime)-SDL_GetTicks());
         }
+        updateCounter++;
     }
 }
 

@@ -11,14 +11,10 @@
 class Enemy : public Entity {
 private:
     int moveToCords[2];
-
     void calculateMovementVelocity();
-
 public:
     void moveTo(direction moveDirection);
-
     bool isOnMove();
-
     void update();
 
     Enemy(int type, int xInPixels, int yInPixels, int health = -1);

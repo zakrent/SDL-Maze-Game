@@ -27,7 +27,10 @@ private:
     std::vector < Tile* > generateNodeRow(Tile* firstNode);
     void updateEntities();
     void checkCollisions();
+
+    void calculateTileDistanceFromPlayer(Tile *StartTile, int previousDistance);
 public:
+    void calculateDistancesFromPlayer();
     std::vector<Player *> players;
     void generateMap();
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet, SDL_Texture* EntitySheet);

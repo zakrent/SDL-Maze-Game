@@ -12,6 +12,13 @@ bool Tile::isSolid() {
 void Tile::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileSheet) {
     SDL_Rect dstrect = {collider.x - camera.x, collider.y - camera.y, TILE_WIDTH, TILE_HEIGHT};
     SDL_Rect srcrect = {type*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT};
+
+    if (125 - distanceFromPlayer * 5 <= 0 || distanceFromPlayer == -1) {
+        SDL_SetTextureColorMod(TileSheet, 0, 0, 0);
+    } else {
+        SDL_SetTextureColorMod(TileSheet, 125 - distanceFromPlayer * 5, 125 - distanceFromPlayer * 5,
+                               125 - distanceFromPlayer * 5);
+    }
     SDL_RenderCopyEx(&renderer, TileSheet, &srcrect, &dstrect, 0, NULL, SDL_FLIP_NONE);
 }
 
