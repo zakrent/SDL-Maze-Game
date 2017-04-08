@@ -193,7 +193,7 @@ void Map::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* TileShee
 Map::Map() {
     generateMap();
     players.push_back(new Player(0, 32, 48));
-    entities.push_back(new Enemy(0, 32, 32));
+    entities.push_back(new Enemy(1, 32, 32));
 }
 
 
