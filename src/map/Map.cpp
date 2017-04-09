@@ -206,7 +206,7 @@ void Map::calculateDistancesFromPlayer() {
 }
 
 void Map::calculateTileDistanceFromPlayer(Tile *StartTile, int previousDistance) {
-    if (previousDistance > 15 || StartTile == NULL) {
+    if (previousDistance > 20 || StartTile == NULL) {
         return;
     } else if ((StartTile->distanceFromPlayer > previousDistance || StartTile->distanceFromPlayer == -1 ||
                 StartTile->distanceFromPlayer == 1)) {
