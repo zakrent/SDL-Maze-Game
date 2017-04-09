@@ -8,7 +8,7 @@ void Program::startMainLoop() {
     Uint32 minUpdateTime = 20;
     Uint32 updateStartedAt;
     unsigned long long int updateCounter = 0;
-    while(running){ // 1 update >= 10 ms
+    while (running) { // 1 update >= 20 ms
         updateStartedAt = SDL_GetTicks();
 
         calculateCameraPos();
@@ -16,7 +16,7 @@ void Program::startMainLoop() {
         handleEvents();
         render();
 
-        if (updateCounter % 10 == 0) {
+        if (updateCounter % 5 == 0) {
             map.calculateDistancesFromPlayer();
         }
 

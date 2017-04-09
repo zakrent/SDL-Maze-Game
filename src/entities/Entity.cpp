@@ -5,7 +5,7 @@
 #include <SDL_render.h>
 #include "Entity.h"
 
-void Entity::update() {
+void Entity::update(Map &mainMap) {
 
     updatePhysics();
 }

@@ -12,10 +12,13 @@ class Enemy : public Entity {
 private:
     int moveToCords[2];
     void calculateMovementVelocity();
+
+    void chasePlayer(Map &mainMap);
 public:
     void moveTo(direction moveDirection);
     bool isOnMove();
-    void update();
+
+    void update(Map &mainMap);
 
     Enemy(int type, int xInPixels, int yInPixels, int health = -1);
 };

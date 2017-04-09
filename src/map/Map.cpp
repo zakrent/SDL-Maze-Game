@@ -102,10 +102,10 @@ void Map::update() {
 
 void Map::updateEntities() {
     for (Entity *entity : entities) {
-        entity->update();
+        entity->update(*this);
     }
     for (Player *player : players) {
-        player->update();
+        player->update(*this);
     }
 }
 
@@ -196,20 +196,20 @@ Map::Map() {
     generateMap();
     players.push_back(new Player(0, 32, 32));
     entities.push_back(new Enemy(1, 32, 32));
+    entities.push_back(new Enemy(1, 32, 128));
 }
 
 void Map::calculateDistancesFromPlayer() {
     for (Tile *tile : tiles) {
         tile->distanceFromPlayer = -1;
     }
-    calculateTileDistanceFromPlayer(players.front()->isStandingOn, 0);
+    calculateTileDistanceFromPlayer(players.front()->isStandingOn, -1);
 }
 
 void Map::calculateTileDistanceFromPlayer(Tile *StartTile, int previousDistance) {
     if (previousDistance > 20 || StartTile == NULL) {
         return;
-    } else if ((StartTile->distanceFromPlayer > previousDistance || StartTile->distanceFromPlayer == -1 ||
-                StartTile->distanceFromPlayer == 1)) {
+    } else if ((StartTile->distanceFromPlayer > previousDistance || StartTile->distanceFromPlayer == -1)) {
         StartTile->distanceFromPlayer = previousDistance + 1;
         if (!StartTile->isSolid()) {
             calculateTileDistanceFromPlayer(getNeighbouringTile(Up, StartTile), previousDistance + 1);
