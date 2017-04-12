@@ -10,7 +10,7 @@ void UserInterface::draw(SDL_Renderer *renderer, Player *mainPlayer) {
 }
 
 void UserInterface::drawHealthBar(SDL_Renderer *renderer, Player *mainPlayer) {
-    SDL_Rect fillRect = {10, 10, mainPlayer->health, 16};
+    SDL_Rect fillRect = {10, 10, mainPlayer->health * 3, 16};
     SDL_SetRenderDrawColor(renderer, 0xFF, 0x30, 0x30, 0xFF);
     SDL_RenderFillRect(renderer, &fillRect);
 }

@@ -15,7 +15,7 @@ void Player::update(Map &mainMap) {
 
 void Player::handleControll() {
     const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-    int velocityMultiplier = 4;
+    int velocityMultiplier = 3;
     if(currentKeyStates[SDL_SCANCODE_A]){
         this->velocity[0] = -1 * velocityMultiplier;
     }else if(currentKeyStates[SDL_SCANCODE_D]){
