@@ -8,6 +8,12 @@ void Enemy::update(Map &mainMap) {
     chasePlayer(mainMap);
     calculateMovementVelocity();
     updatePhysics();
+    if (isStandingOn) {
+        if (isStandingOn->distanceFromPlayer <= 0) {
+            if (mainMap.players.front())
+                mainMap.players.front()->takeDamage(10);
+        }
+    }
 }
 
 

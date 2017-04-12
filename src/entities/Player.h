@@ -10,6 +10,7 @@
 
 class Player : public Entity{
 public:
+    void update(Map &mainMap);
     void handleControll();
     Player(int type, int xInPixels, int yInPixels, int health = -1);
 };

@@ -46,8 +46,12 @@ void Program::calculateCameraPos(){
 }
 
 void Program::render() {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
+
     map.render(*renderer, camera, TileSheet, EntitySheet);
+    UI.draw(renderer, map.players.front());
+
     SDL_RenderPresent(renderer);
 }
 

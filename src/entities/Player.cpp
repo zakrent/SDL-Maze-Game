@@ -4,6 +4,14 @@
 
 #include "Player.h"
 
+void Player::update(Map &mainMap) {
+    updatePhysics();
+    if (health <= 0) {
+        SDL_Event event;
+        event.type = SDL_QUIT;
+        SDL_PushEvent(&event);
+    }
+}
 
 void Player::handleControll() {
     const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );

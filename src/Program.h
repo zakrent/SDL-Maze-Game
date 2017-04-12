@@ -7,6 +7,10 @@
 
 #include <SDL2/SDL.h>
 #include "map/Map.h"
+#include "UI/UserInterface.h"
+
+static const int SCREEN_WIDTH = 640;
+static const int SCREEN_HEIGHT = 480;
 
 class Program {
 private:
@@ -15,9 +19,9 @@ private:
     bool running = false;
     void render();
     void handleEvents();
+
+    UserInterface UI;
 public:
-    const int SCREEN_WIDTH  = 640;
-    const int SCREEN_HEIGHT = 480;
     SDL_Renderer *renderer;
     SDL_Texture *TileSheet;
     SDL_Texture *EntitySheet;

@@ -15,15 +15,18 @@ class Entity {
 protected:
     float velocity[2]; //velocity[0] is x and [1] is y, unit = 1px/0.01s
     void updatePhysics();
-    int health; //-1 for indestructible
+
+    Uint32 lastDamageTime;
 public:
     const int ENTITY_WIDTH = 24;
     const int ENTITY_HEIGHT = 24;
+    int health; //-1 for indestructible
     SDL_Rect collider;
     Tile* isStandingOn;
     int type;
     void render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* EntitySheet);
 
+    void takeDamage(int damage);
     virtual void update(Map &mainMap);
     void handleTileCollision(Tile& tile);
     Entity(int type, int xInPixels, int yInPixels, int health = -1);

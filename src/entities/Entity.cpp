@@ -3,6 +3,7 @@
 //
 
 #include <SDL_render.h>
+#include <SDL_timer.h>
 #include "Entity.h"
 
 void Entity::update(Map &mainMap) {
@@ -30,10 +31,20 @@ void Entity::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* Entit
     SDL_RenderCopyEx(&renderer, EntitySheet, &srcrect, &dstrect, 0, NULL, SDL_FLIP_NONE);
 }
 
+void Entity::takeDamage(int damage) {
+    if (SDL_GetTicks() - lastDamageTime < 1000) {
+        return;
+    }
+    health -= damage;
+    lastDamageTime = SDL_GetTicks();
+}
+
+
 Entity::Entity(int type, int xInPixels, int yInPixels, int health) {
     this->isStandingOn = NULL;
     this->type = type;
     this->health = health;
+    lastDamageTime = SDL_GetTicks();
     collider = {xInPixels, yInPixels, ENTITY_WIDTH, ENTITY_HEIGHT};
 }
 
