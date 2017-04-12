@@ -28,11 +28,20 @@ void Entity::handleTileCollision(Tile& tile) {
 void Entity::render(SDL_Renderer& renderer, SDL_Rect& camera, SDL_Texture* EntitySheet) {
     SDL_Rect dstrect = {collider.x - camera.x, collider.y - camera.y, ENTITY_WIDTH, ENTITY_HEIGHT};
     SDL_Rect srcrect = {type*ENTITY_WIDTH, 0, ENTITY_WIDTH, ENTITY_HEIGHT};
+    if (isStandingOn) {
+        int distanceFromPlayer = isStandingOn->distanceFromPlayer;
+        if (125 - distanceFromPlayer * 5 <= 0 || distanceFromPlayer == -1) {
+            SDL_SetTextureColorMod(EntitySheet, 0, 0, 0);
+        } else {
+            SDL_SetTextureColorMod(EntitySheet, 125 - distanceFromPlayer * 5, 125 - distanceFromPlayer * 5,
+                                   125 - distanceFromPlayer * 5);
+        }
+    }
     SDL_RenderCopyEx(&renderer, EntitySheet, &srcrect, &dstrect, 0, NULL, SDL_FLIP_NONE);
 }
 
 void Entity::takeDamage(int damage) {
-    if (SDL_GetTicks() - lastDamageTime < 1000) {
+    if (SDL_GetTicks() - lastDamageTime < 250) {
         return;
     }
     health -= damage;

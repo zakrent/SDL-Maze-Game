@@ -9,7 +9,7 @@ void Enemy::update(Map &mainMap) {
     calculateMovementVelocity();
     updatePhysics();
     if (isStandingOn) {
-        if (isStandingOn->distanceFromPlayer <= 0) {
+        if (isStandingOn->distanceFromPlayer == 0) {
             if (mainMap.players.front())
                 mainMap.players.front()->takeDamage(10);
         }
@@ -71,15 +71,16 @@ void Enemy::chasePlayer(Map &mainMap) {
 void Enemy::calculateMovementVelocity() {
     velocity[0] = 0;
     velocity[1] = 0;
+    int velMul = 2;
     if (moveToCords[0] < collider.x) {
-        velocity[0] = -1;
+        velocity[0] = -1 * velMul;
     } else if (moveToCords[0] > collider.x) {
-        velocity[0] = 1;
+        velocity[0] = 1 * velMul;
     }
     if (moveToCords[1] < collider.y) {
-        velocity[1] = -1;
+        velocity[1] = -1 * velMul;
     } else if (moveToCords[1] > collider.y) {
-        velocity[1] = 1;
+        velocity[1] = 1 * velMul;
     }
 
 };

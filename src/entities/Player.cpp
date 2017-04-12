@@ -6,7 +6,7 @@
 
 void Player::update(Map &mainMap) {
     updatePhysics();
-    if (health <= 0) {
+    if (health <= 0 || (isStandingOn != NULL && isStandingOn->type == 3)) {
         SDL_Event event;
         event.type = SDL_QUIT;
         SDL_PushEvent(&event);
@@ -15,7 +15,7 @@ void Player::update(Map &mainMap) {
 
 void Player::handleControll() {
     const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-    int velocityMultiplier = 2;
+    int velocityMultiplier = 4;
     if(currentKeyStates[SDL_SCANCODE_A]){
         this->velocity[0] = -1 * velocityMultiplier;
     }else if(currentKeyStates[SDL_SCANCODE_D]){
